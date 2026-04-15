@@ -17,8 +17,8 @@ node("local") {
 
   stage('Trigger hopsworks-dlt') {
     build job: downstreamJob,
-      wait: true,
-      propagate: true,
+      wait: false,
+      propagate: false,
       parameters: [
         string(name: 'BASE_IMAGE', value: baseImage)
       ]
