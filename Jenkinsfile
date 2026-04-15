@@ -1,7 +1,7 @@
 node("local") {
   def downstreamJobRoot = env.DLT_JOB_NAME ?: "k8s-dlt"
-  def upstreamBranch = env.BRANCH_NAME ?: "main"
-  def downstreamBranch = upstreamBranch == "main" ? "master" : upstreamBranch
+  def upstreamBranch = env.BRANCH_NAME ?: "master"
+  def downstreamBranch = upstreamBranch == "master" ? "main" : upstreamBranch
   def downstreamJob = "${downstreamJobRoot}/${downstreamBranch}"
   def baseImage = env.BASE_IMAGE ?: "docker.hops.works/hopsworks/hopsworks-base:pandas-training-pipeline-test"
 
