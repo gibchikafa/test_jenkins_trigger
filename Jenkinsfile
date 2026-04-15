@@ -1,5 +1,5 @@
 node("local") {
-  def downstreamJobRoot = env.DLT_JOB_NAME ?: "k8s-dlt"
+  def downstreamJobRoot = env.DLT_JOB_NAME ?: "hopsworks-dlt"
   def upstreamBranch = env.BRANCH_NAME ?: "master"
   def downstreamBranch = upstreamBranch == "master" ? "main" : upstreamBranch
   def downstreamJob = "${downstreamJobRoot}/${downstreamBranch}"
