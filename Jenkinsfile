@@ -1,8 +1,8 @@
 node("local") {
-  def downstreamJobRoot = env.DLT_JOB_NAME ?: "hopsworks-dlt"
-  def upstreamBranch = env.BRANCH_NAME ?: "master"
-  def downstreamBranch = upstreamBranch == "master" ? "main" : upstreamBranch
-  def downstreamJob = "${downstreamJobRoot}/${downstreamBranch}"
+  def downstreamJobName = env.DLT_JOB_NAME ?: "k8s-dlt"
+  def upstreamBranch = env.BRANCH_NAME ?: "main"
+  def downstreamBranch = env.DLT_JOB_BRANCH?.trim()
+  def downstreamJob = downstreamBranch ? "${downstreamJobName}/${downstreamBranch}" : downstreamJobName
   def baseImage = env.BASE_IMAGE ?: "docker.hops.works/hopsworks/hopsworks-base:pandas-training-pipeline-test"
 
   stage('Checkout') {

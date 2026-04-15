@@ -1,28 +1,31 @@
 # test_jenkins_trigger
 
-Minimal Jenkins test repository for triggering the `hopsworks-dlt` Jenkins job.
+Minimal Jenkins test repository for triggering the `k8s-dlt` Jenkins job.
 
 ## Behavior
 
 - Does not build any Docker image itself.
 - Runs a dummy upstream stage.
-- Triggers `hopsworks-dlt/<branch>` and waits for it to finish.
-- Maps `main` to downstream branch `master`.
+- Triggers `k8s-dlt` by default and waits for it to finish.
+- Can trigger a branch-qualified downstream job if you set `DLT_JOB_BRANCH`.
 - Passes `BASE_IMAGE` to the downstream build.
 
 ## Jenkins variables
 
 - `DLT_JOB_NAME`
-  - Defaults to `hopsworks-dlt`
+  - Defaults to `k8s-dlt`
+- `DLT_JOB_BRANCH`
+  - Optional
+  - If set, the pipeline triggers `${DLT_JOB_NAME}/${DLT_JOB_BRANCH}`
 - `BASE_IMAGE`
   - Defaults to `docker.hops.works/hopsworks/hopsworks-base:pandas-training-pipeline-test`
 
 ## Example
 
-If this job runs on branch `main`, it triggers:
+With default settings, it triggers:
 
-`hopsworks-dlt/master`
+`k8s-dlt`
 
-If this job runs on branch `feature-x`, it triggers:
+If you set `DLT_JOB_BRANCH=feature-x`, it triggers:
 
-`hopsworks-dlt/feature-x`
+`k8s-dlt/feature-x`
