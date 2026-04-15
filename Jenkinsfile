@@ -3,7 +3,7 @@ node("local") {
   def upstreamBranch = env.BRANCH_NAME ?: "main"
   def downstreamBranch = env.DLT_JOB_BRANCH?.trim() ?: upstreamBranch?.trim()
   def downstreamJob = downstreamBranch ? "${downstreamJobName}/${downstreamBranch}" : downstreamJobName
-  def dltImageVersion = env.DLT_IMAGE_VERSION ?: "4.8.1"
+  def dltImageVersion = env.DLT_IMAGE_VERSION ?: "autosync_base_image_with_hopsworks"
   def baseImageVersion = env.BASE_IMAGE_VERSION ?: dltImageVersion
 
   stage('Checkout') {
