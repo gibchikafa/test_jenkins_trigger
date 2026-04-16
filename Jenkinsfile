@@ -1,16 +1,14 @@
 node("local") {
   def downstreamJobName = env.DLT_JOB_NAME ?: "k8s-dlt"
+  def scmVars = [:]
   def upstreamBranch = "main"
   def downstreamJob = downstreamJobName
   def dltImageVersion = env.DLT_IMAGE_VERSION ?: "test-SNAPSHOT"
   def baseImageVersion = env.BASE_IMAGE_VERSION ?: "5.0.0-SNAPSHOT"
 
   stage('Checkout') {
-    checkout scm
-    upstreamBranch = sh(
-      script: 'git rev-parse --abbrev-ref HEAD',
-      returnStdout: true
-    ).trim()
+    scmVars = checkout scm
+    upstreamBranch = scmVars.GIT_BRANCH?.replaceFirst('^origin/', '') ?: "main"
   }
 
   stage('Debug env') {
@@ -19,6 +17,8 @@ node("local") {
 
   stage('Dummy upstream work') {
     echo "BRANCH_NAME=${env.BRANCH_NAME}"
+    echo "GIT_BRANCH=${scmVars.GIT_BRANCH}"
+    echo "GIT_LOCAL_BRANCH=${scmVars.GIT_LOCAL_BRANCH}"
     echo "CHECKED_OUT_BRANCH=${upstreamBranch}"
     echo "Trigger test job running from branch: ${upstreamBranch}"
     echo "Configured downstream job: ${downstreamJob}"
