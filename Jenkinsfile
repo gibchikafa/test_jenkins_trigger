@@ -3,7 +3,7 @@ node("local") {
   def scmVars = [:]
   def upstreamBranch = "main"
   def downstreamJob = downstreamJobName
-  def dltImageVersion = env.DLT_IMAGE_VERSION ?: "test-SNAPSHOT"
+  def dltImageVersion = env.DLT_IMAGE_VERSION ?: "5.0.0-SNAPSHOT"
   def baseImageVersion = env.BASE_IMAGE_VERSION ?: "5.0.0-SNAPSHOT"
 
   stage('Checkout') {
