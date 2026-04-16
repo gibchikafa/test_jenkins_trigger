@@ -11,6 +11,10 @@ node("local") {
     checkout scm
   }
 
+  stage('Debug env') {
+    sh 'printenv | sort'
+  }
+
   stage('Dummy upstream work') {
     echo "BRANCH_NAME=${env.BRANCH_NAME}"
     echo "SCM_BRANCH=${scmBranch}"
