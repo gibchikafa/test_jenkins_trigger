@@ -10,6 +10,7 @@ node("local") {
   }
 
   stage('Dummy upstream work') {
+    echo "BRANCH_NAME=${env.BRANCH_NAME}"
     echo "Trigger test job running from branch: ${upstreamBranch}"
     echo "Configured downstream job: ${downstreamJob}"
     echo "Passing DLT_GIT_BRANCH=${upstreamBranch}"
